@@ -1,70 +1,165 @@
-# Getting Started with Create React App
+# Agile - Modern Marketing Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A beautiful, responsive React website built with Tailwind CSS and Framer Motion animations. This project showcases modern web design principles with smooth animations, clean typography, and excellent user experience.
 
-## Available Scripts
+## 🚀 Features
 
-In the project directory, you can run:
+- **Modern Design**: Clean, minimal aesthetic with large typography inspired by contemporary design trends
+- **Responsive Layout**: Fully responsive design that works perfectly on all devices
+- **Smooth Animations**: Beautiful scroll-triggered animations using Framer Motion
+- **SEO Optimized**: Built with React Helmet for proper meta tags and SEO optimization
+- **Five Complete Pages**: Home, About, Work, Services, and Contact
+- **Interactive Elements**: Hover effects, scroll animations, and smooth page transitions
+- **Custom Design System**: Comprehensive color palette and typography system
+- **Contact Form**: Functional contact form with validation
+- **Portfolio Showcase**: Filterable project gallery
+- **Performance Optimized**: Fast loading times and optimized images
 
-### `npm start`
+## 🎨 Design Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Color Palette**: 
+  - Primary: Deep blue tones (#1d4ed8 to #172554)
+  - Accent: Warm red/orange (#ef4444)
+  - Neutrals: Complete grayscale palette
+- **Typography**: Inter font with custom display sizes
+- **Animations**: Scroll-triggered text reveals, smooth page transitions, hover effects
+- **Layout**: Modern grid systems with proper spacing and visual hierarchy
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🛠️ Tech Stack
 
-### `npm test`
+- **React 19**: Latest React with modern hooks and features
+- **Tailwind CSS 4**: Latest utility-first CSS framework
+- **Framer Motion**: Professional animation library
+- **React Router**: Client-side routing
+- **React Helmet Async**: SEO and meta tag management
+- **Picsum Photos**: Placeholder images for development
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 📦 Installation
 
-### `npm run build`
+1. **Clone the repository** (if this was a git repo):
+   ```bash
+   git clone <repository-url>
+   cd marketing
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. **Start the development server**:
+   ```bash
+   npm start
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. **Open your browser** and navigate to `http://localhost:3000`
 
-### `npm run eject`
+## 🏗️ Project Structure
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+src/
+├── components/          # Reusable components
+│   ├── Header.js       # Navigation header
+│   └── Footer.js       # Site footer
+├── pages/              # Page components
+│   ├── Home.js         # Homepage
+│   ├── About.js        # About page
+│   ├── Work.js         # Portfolio page
+│   ├── Services.js     # Services page
+│   └── Contact.js      # Contact page
+├── hooks/              # Custom React hooks
+│   └── useTextReveal.js # Scroll animation hook
+├── App.js              # Main app component
+├── index.js            # App entry point
+└── index.css           # Global styles
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🎯 Pages Overview
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Home
+- Hero section with animated typography
+- Services overview with icons
+- Featured work preview
+- Call-to-action section
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### About
+- Company values with alternating layout
+- Team member profiles
+- Statistics section
+- Animated elements throughout
 
-## Learn More
+### Work
+- Filterable project portfolio
+- Project cards with hover effects
+- Process overview
+- Detailed project information
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Services
+- Service offerings with detailed features
+- Pricing plans comparison
+- Process timeline
+- FAQ section
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Contact
+- Contact form with validation
+- Company information
+- Multiple office locations
+- Social media links
 
-### Code Splitting
+## 🔧 Customization
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Colors
+Edit `tailwind.config.js` to customize the color palette:
+```javascript
+colors: {
+  primary: { /* Your primary colors */ },
+  accent: { /* Your accent colors */ },
+  neutral: { /* Your neutral colors */ }
+}
+```
 
-### Analyzing the Bundle Size
+### Typography
+Modify font settings in `tailwind.config.js`:
+```javascript
+fontFamily: {
+  'display': ['Your-Font', 'system-ui', 'sans-serif'],
+  'body': ['Your-Font', 'system-ui', 'sans-serif'],
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Content
+Update content in each page component to match your brand and requirements.
 
-### Making a Progressive Web App
+## 📱 Responsive Design
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+The website is fully responsive with breakpoints:
+- Mobile: 320px+
+- Tablet: 768px+
+- Desktop: 1024px+
+- Large Desktop: 1280px+
 
-### Advanced Configuration
+## ⚡ Performance
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- Optimized images using Picsum (replace with optimized real images)
+- Lazy loading for off-screen content
+- Efficient animations with Framer Motion
+- Minimal bundle size with tree shaking
 
-### Deployment
+## 🌐 Browser Support
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
 
-### `npm run build` fails to minify
+## 📞 Support
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+For questions or support, please contact hello@agile.com
+
+## 📄 License
+
+This project is created for demonstration purposes. Please ensure you have proper licenses for any assets used in production.
+
+---
+
+Built with ❤️ using React, Tailwind CSS, and Framer Motion
