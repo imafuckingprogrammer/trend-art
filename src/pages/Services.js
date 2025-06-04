@@ -1,9 +1,16 @@
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ScrollRevealText from '../components/ScrollRevealText';
 
 const Services = () => {
+  useEffect(() => {
+    document.title = 'Services - Trend Art Media';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Comprehensive digital marketing and creative services from strategy to execution. Transform your brand with our expert team.');
+    }
+  }, []);
+
   const services = [
     {
       number: "1",
@@ -113,11 +120,6 @@ const Services = () => {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden pt-20">
-      <Helmet>
-        <title>Services - Trend Art Media</title>
-        <meta name="description" content="Comprehensive digital marketing and creative services from strategy to execution. Transform your brand with our expert team." />
-      </Helmet>
-
       {/* Hero Section */}
       <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">

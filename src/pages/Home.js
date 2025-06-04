@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Helmet } from 'react-helmet-async';
 import ScrollRevealText from '../components/ScrollRevealText';
 import logo from '../layer1.png';
 
@@ -9,6 +8,21 @@ const Home = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isTouch, setIsTouch] = useState(false);
   const logoContainerRef = useRef(null);
+
+  useEffect(() => {
+    // Set document title and meta description
+    document.title = 'Trend Art Media - Digital Innovation Redefined';
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'We craft extraordinary digital experiences through cutting-edge design, seamless development, and strategic innovation.');
+    }
+
+    const metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (metaKeywords) {
+      metaKeywords.setAttribute('content', 'digital agency, web design, branding, innovation, UI/UX, development');
+    }
+  }, []);
 
   useEffect(() => {
     // Detect if device is mobile
@@ -87,12 +101,6 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
-      <Helmet>
-        <title>Trend Art Media - Digital Innovation Redefined</title>
-        <meta name="description" content="We craft extraordinary digital experiences through cutting-edge design, seamless development, and strategic innovation." />
-        <meta name="keywords" content="digital agency, web design, branding, innovation, UI/UX, development" />
-      </Helmet>
-
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-8xl mx-auto text-center w-full">

@@ -1,9 +1,16 @@
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ScrollRevealText from '../components/ScrollRevealText';
 
 const Work = () => {
+  useEffect(() => {
+    document.title = 'Work - Trend Art Media';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Explore our portfolio of digital experiences, branding projects, and innovative solutions.');
+    }
+  }, []);
+
   const projects = [
     {
       title: "Genie AI Platform",
@@ -45,11 +52,6 @@ const Work = () => {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden pt-20">
-      <Helmet>
-        <title>Work - Trend Art Media</title>
-        <meta name="description" content="Explore our portfolio of digital experiences, branding projects, and innovative solutions." />
-      </Helmet>
-
       {/* Hero Section */}
       <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">

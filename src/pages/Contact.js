@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { Helmet } from 'react-helmet-async';
+import React, { useState, useEffect } from 'react';
 import ScrollRevealText from '../components/ScrollRevealText';
 
 const Contact = () => {
@@ -9,6 +8,14 @@ const Contact = () => {
     company: '',
     message: ''
   });
+
+  useEffect(() => {
+    document.title = 'Contact - Trend Art Media';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Get in touch with Trend Art Media. Let\'s discuss your next project and bring your vision to life.');
+    }
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -25,11 +32,6 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden pt-20">
-      <Helmet>
-        <title>Contact - Trend Art Media</title>
-        <meta name="description" content="Get in touch with Trend Art Media. Let's discuss your next project." />
-      </Helmet>
-
       {/* Hero Section */}
       <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">

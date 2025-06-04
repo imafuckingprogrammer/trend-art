@@ -1,15 +1,18 @@
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ScrollRevealText from '../components/ScrollRevealText';
 
 const About = () => {
+  useEffect(() => {
+    document.title = 'About - Trend Art Media';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Learn about Trend Art Media - We are agile, innovative, and culturally connected.');
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden pt-20">
-      <Helmet>
-        <title>About - Trend Art Media</title>
-        <meta name="description" content="Learn about Trend Art Media - We are agile, innovative, and culturally connected." />
-      </Helmet>
 
       {/* Hero Section */}
       <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8">
