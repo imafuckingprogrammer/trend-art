@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 import Hero from '../components/Hero';
 import TextReveal from '../components/TextReveal';
+import MarqueeCarousel from '../components/MarqueeCarousel';
 import InteractiveButton from '../components/InteractiveButton';
-import MagneticButton from '../components/MagneticButton';
 import FloatingElement from '../components/FloatingElement';
 import CustomCursor from '../components/CustomCursor';
 
@@ -25,7 +24,6 @@ const Home = () => {
     if (metaKeywords) {
       metaKeywords.setAttribute('content', 'marketing agency, digital strategy, brand development, web design, creative agency, innovation, UI/UX design');
     }
-
   }, []);
 
   // Sample gallery images for marquee carousels
@@ -107,9 +105,9 @@ const Home = () => {
       <Hero />
 
       {/* Process Section */}
-      <section className="py-16 sm:py-20 lg:py-24 xl:py-28 px-4 sm:px-6 lg:px-8">
+      <section className="py-24 lg:py-32 px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <TextReveal direction="scale" className="text-center mb-16">
+          <TextReveal direction="scale" className="text-center mb-20">
             <div className="space-y-4">
               <span className="text-body-sm font-medium tracking-[0.3em] text-text-tertiary uppercase">
                 Our Process
@@ -121,10 +119,10 @@ const Home = () => {
             </div>
           </TextReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
+          <div className="grid lg:grid-cols-3 gap-12 lg:gap-16">
             {processItems.map((item, index) => (
               <TextReveal key={item.number} delay={index * 0.2} className="group">
-                <div className="relative p-6 sm:p-8 lg:p-10 bg-white rounded-3xl sm:rounded-4xl shadow-soft hover:shadow-medium transition-all duration-500 border border-neutral-200 hover:border-accent-200 h-full">
+                <div className="relative p-8 lg:p-10 bg-white rounded-4xl shadow-soft hover:shadow-medium transition-all duration-500 border border-neutral-200 hover:border-accent-200">
                   <FloatingElement 
                     duration={6 + index} 
                     intensity={5} 
@@ -133,13 +131,13 @@ const Home = () => {
                   />
                   
                   <div className="relative z-10">
-                    <div className="text-2xl sm:text-display-sm font-black text-accent-500 mb-4 sm:mb-6 opacity-20">
+                    <div className="text-display-sm font-black text-accent-500 mb-6 opacity-20">
                       {item.number}
                     </div>
-                    <h3 className="text-lg sm:text-heading-lg font-display font-semibold text-text-primary mb-3 sm:mb-4">
+                    <h3 className="text-heading-lg font-display font-semibold text-text-primary mb-4">
                       {item.title}
                     </h3>
-                    <p className="text-base sm:text-body-lg text-text-secondary leading-relaxed">
+                    <p className="text-body-lg text-text-secondary leading-relaxed">
                       {item.description}
                     </p>
                   </div>
@@ -151,40 +149,23 @@ const Home = () => {
       </section>
 
       {/* Gallery Marquee */}
-      <section className="py-16 sm:py-20 lg:py-24 xl:py-28">
-        <TextReveal className="text-center mb-12 px-4 sm:px-6 lg:px-8">
+      <section className="py-16 lg:py-20">
+        <TextReveal className="text-center mb-12">
           <span className="text-body-sm font-medium tracking-[0.3em] text-text-tertiary uppercase">
             Our Recent Work
           </span>
         </TextReveal>
         
-        <div className="overflow-hidden relative">
-          <div
-            className="flex gap-8 will-change-transform"
-            style={{ 
-              width: "300%",
-              animation: "marqueeLeft 20s linear infinite"
-            }}
-          >
-            {[...galleryImages, ...galleryImages, ...galleryImages].map((image, index) => (
-              <div
-                key={`marquee-${index}`}
-                className="h-48 sm:h-64 lg:h-80 w-72 sm:w-96 lg:w-[500px] rounded-3xl overflow-hidden shadow-medium flex-shrink-0"
-              >
-                <img 
-                  src={image} 
-                  alt={`Project ${(index % galleryImages.length) + 1}`}
-                  className="h-full w-full object-cover"
-                  draggable={false}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
+        <MarqueeCarousel 
+          items={galleryImages}
+          speed={0.5}
+          className="h-64 lg:h-80"
+          itemClassName="h-full w-96 lg:w-[500px] rounded-3xl overflow-hidden shadow-medium"
+        />
       </section>
 
       {/* Services Section */}
-      <section className="py-16 sm:py-20 lg:py-24 xl:py-28 px-4 sm:px-6 lg:px-8 bg-neutral-50">
+      <section className="py-24 lg:py-32 px-6 lg:px-8 bg-neutral-50">
         <div className="max-w-7xl mx-auto">
           <TextReveal direction="scale" className="text-center mb-20">
             <div className="space-y-4">
@@ -197,35 +178,33 @@ const Home = () => {
             </div>
           </TextReveal>
           
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {services.map((service, index) => (
               <TextReveal key={service.name} delay={index * 0.1}>
-                <MagneticButton intensity={0.2} className="w-full h-full">
-                  <div 
-                    className="group p-3 sm:p-4 md:p-6 lg:p-8 bg-white rounded-2xl sm:rounded-3xl border border-neutral-200 hover:border-accent-300 transition-all duration-300 hover:shadow-soft cursor-pointer w-full h-full flex flex-col justify-center text-center min-h-[120px] sm:min-h-[140px]"
-                    onMouseEnter={() => {
-                      setCursorVisible(true);
-                      setCursorImage(service.image);
-                      setCursorText(service.name);
-                    }}
-                    onMouseLeave={() => {
-                      setCursorVisible(false);
-                      setCursorImage('');
-                      setCursorText('');
-                    }}
-                    onClick={() => {
-                      // Navigate to service page
-                      window.location.href = service.path;
-                    }}
-                  >
-                    <div className="text-xs sm:text-body-sm text-text-tertiary mb-1 sm:mb-2 font-medium">
-                      0{index + 1}
-                    </div>
-                    <div className="text-sm sm:text-base md:text-heading-md font-display font-medium text-text-primary group-hover:text-accent-600 transition-colors leading-tight">
-                      {service.name}
-                    </div>
+                <div 
+                  className="group p-6 lg:p-8 bg-white rounded-3xl border border-neutral-200 hover:border-accent-300 transition-all duration-300 hover:shadow-soft cursor-pointer"
+                  onMouseEnter={() => {
+                    setCursorVisible(true);
+                    setCursorImage(service.image);
+                    setCursorText(service.name);
+                  }}
+                  onMouseLeave={() => {
+                    setCursorVisible(false);
+                    setCursorImage('');
+                    setCursorText('');
+                  }}
+                  onClick={() => {
+                    // Navigate to service page
+                    window.location.href = service.path;
+                  }}
+                >
+                  <div className="text-body-sm text-text-tertiary mb-2 font-medium">
+                    0{index + 1}
                   </div>
-                </MagneticButton>
+                  <div className="text-heading-md font-display font-medium text-text-primary group-hover:text-accent-600 transition-colors">
+                    {service.name}
+                  </div>
+                </div>
               </TextReveal>
             ))}
           </div>
@@ -233,10 +212,10 @@ const Home = () => {
       </section>
 
       {/* Featured Work */}
-      <section className="py-16 sm:py-20 lg:py-24 xl:py-28 px-4 sm:px-6 lg:px-8">
+      <section className="py-24 lg:py-32 px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <TextReveal className="text-center mb-16">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black text-text-primary leading-none">
+          <TextReveal className="text-center mb-20">
+            <h2 className="text-display-lg lg:text-display-xl font-display font-black text-text-primary leading-none">
               FEATURED
               <span className="block bg-gradient-to-r from-accent-600 to-accent-400 bg-clip-text text-transparent">
                 WORK
@@ -245,35 +224,33 @@ const Home = () => {
           </TextReveal>
 
           <TextReveal delay={0.4}>
-            <div className="relative group cursor-pointer rounded-3xl sm:rounded-4xl overflow-hidden shadow-hard">
+            <div className="relative group cursor-pointer rounded-4xl overflow-hidden shadow-hard">
               <img 
                 src="https://picsum.photos/1400/800?random=10" 
                 alt="Featured project"
-                className="w-full h-64 sm:h-80 md:h-96 lg:h-[60vh] xl:h-[70vh] object-cover transition-transform duration-1000 group-hover:scale-105"
+                className="w-full h-96 lg:h-[70vh] object-cover transition-transform duration-1000 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-              <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 lg:bottom-12 left-4 sm:left-6 md:left-8 lg:left-12 right-4 sm:right-6 md:right-8 lg:right-12">
-                <div className="space-y-3 sm:space-y-4 md:space-y-6">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+              <div className="absolute bottom-8 lg:bottom-12 left-8 lg:left-12 right-8 lg:right-12">
+                <div className="space-y-6">
                   <div>
-                    <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-display font-bold text-white mb-2 sm:mb-3 md:mb-4 leading-tight">
+                    <h3 className="text-heading-lg lg:text-display-md font-display font-bold text-white mb-4">
                       Innovation Platform
                     </h3>
-                    <p className="text-sm sm:text-base md:text-lg lg:text-xl text-neutral-300 mb-3 sm:mb-4 md:mb-6 max-w-2xl leading-relaxed">
+                    <p className="text-body-lg text-neutral-300 mb-6 max-w-2xl">
                       Revolutionary digital platform connecting creative minds and driving industry innovation
                     </p>
-                    <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm md:text-base text-neutral-400">
+                    <div className="flex gap-4 text-body-sm text-neutral-400">
                       <span>Platform Design</span>
-                      <span className="hidden sm:inline">•</span>
+                      <span>•</span>
                       <span>React</span>
-                      <span className="hidden sm:inline">•</span>
+                      <span>•</span>
                       <span>2024</span>
                     </div>
                   </div>
-                  <div className="pt-2 sm:pt-0">
-                    <InteractiveButton variant="primary" size="sm" className="text-xs sm:text-sm md:text-base">
-                      View Case Study
-                    </InteractiveButton>
-                  </div>
+                  <InteractiveButton variant="primary" size="md">
+                    View Case Study
+                  </InteractiveButton>
                 </div>
               </div>
             </div>
@@ -282,7 +259,7 @@ const Home = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 sm:py-20 lg:py-24 xl:py-28 px-4 sm:px-6 lg:px-8 bg-neutral-50">
+      <section className="py-24 lg:py-32 px-6 lg:px-8 bg-neutral-50">
         <div className="max-w-4xl mx-auto text-center">
           <TextReveal>
             <h2 className="text-display-md lg:text-display-lg font-display font-bold text-text-primary mb-8 leading-tight">

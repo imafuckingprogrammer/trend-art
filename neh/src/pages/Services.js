@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import TextReveal from '../components/TextReveal';
 import InteractiveButton from '../components/InteractiveButton';
 import MagneticButton from '../components/MagneticButton';
 import FloatingElement from '../components/FloatingElement';
 
 const Services = () => {
+  const [activeService, setActiveService] = useState(0);
+  const [hoveredCard, setHoveredCard] = useState(null);
 
   useEffect(() => {
     document.title = 'Our Services - Trend Art';
@@ -21,6 +23,8 @@ const Services = () => {
       title: "Brand Strategy & Identity",
       subtitle: "Foundation for Success",
       description: "Comprehensive brand development from strategy to visual identity, creating authentic connections with your audience.",
+      icon: "🎯",
+      color: "from-blue-500 to-cyan-400",
       features: [
         "Brand positioning & strategy",
         "Visual identity design",
@@ -34,6 +38,8 @@ const Services = () => {
       title: "Digital Marketing",
       subtitle: "Growth Acceleration",
       description: "Data-driven marketing campaigns across all channels to maximize reach, engagement, and conversions.",
+      icon: "📈",
+      color: "from-green-500 to-emerald-400",
       features: [
         "Social media management",
         "Paid advertising campaigns",
@@ -47,6 +53,8 @@ const Services = () => {
       title: "Web Development",
       subtitle: "Digital Excellence",
       description: "Custom websites and applications that combine stunning design with powerful functionality and seamless user experience.",
+      icon: "💻",
+      color: "from-purple-500 to-pink-400",
       features: [
         "Custom website development",
         "E-commerce solutions",
@@ -60,6 +68,8 @@ const Services = () => {
       title: "Creative Production",
       subtitle: "Visual Storytelling",
       description: "Professional video, photography, and design services that bring your brand story to life with impact.",
+      icon: "🎬",
+      color: "from-orange-500 to-red-400",
       features: [
         "Video production",
         "Photography services",
@@ -105,23 +115,23 @@ const Services = () => {
   return (
     <div className="min-h-screen bg-primary-50 text-text-primary overflow-x-hidden">
       {/* Hero Section */}
-      <section className="relative py-20 sm:py-24 lg:py-28 xl:py-32 px-4 sm:px-6 lg:px-8 min-h-[75vh] flex items-center">
-        <div className="max-w-7xl mx-auto w-full">
+      <section className="relative py-32 lg:py-40 px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
           <FloatingElement duration={10} intensity={20} delay={0} className="absolute top-32 right-20 w-40 h-40 bg-accent-500/10 rounded-full blur-3xl" />
           <FloatingElement duration={8} intensity={15} delay={2} direction="x" className="absolute bottom-40 left-10 w-32 h-32 bg-accent-400/10 rounded-full blur-2xl" />
           
-          <TextReveal className="text-center mb-16">
+          <TextReveal className="text-center mb-20">
             <div className="space-y-8">
               <span className="text-body-sm font-medium tracking-[0.3em] text-text-tertiary uppercase">
                 What We Offer
               </span>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-black text-text-primary leading-none">
+              <h1 className="text-display-xl lg:text-display-2xl font-display font-black text-text-primary leading-none">
                 MARKETING
                 <span className="block bg-gradient-to-r from-accent-600 to-accent-400 bg-clip-text text-transparent">
                   SERVICES
                 </span>
               </h1>
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-text-secondary max-w-3xl mx-auto leading-relaxed px-4">
+              <p className="text-heading-md text-text-secondary max-w-3xl mx-auto leading-relaxed">
                 From strategy to execution, we deliver comprehensive marketing solutions that transform brands and drive sustainable growth.
               </p>
             </div>
@@ -130,9 +140,9 @@ const Services = () => {
       </section>
 
       {/* Main Services Grid */}
-      <section className="py-16 sm:py-20 lg:py-24 xl:py-28 px-4 sm:px-6 lg:px-8">
+      <section className="py-24 lg:py-32 px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
             {mainServices.map((service, index) => (
               <motion.div
                 key={service.id}
@@ -141,28 +151,40 @@ const Services = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 className="group relative"
+                onMouseEnter={() => setHoveredCard(service.id)}
+                onMouseLeave={() => setHoveredCard(null)}
               >
-                <MagneticButton intensity={0.1} className="w-full h-full">
-                  <div className="text-center p-4 sm:p-6 md:p-8 lg:p-10 bg-white rounded-3xl shadow-soft hover:shadow-medium transition-all duration-300 border border-neutral-200 hover:border-accent-300 h-full flex flex-col">
-                    {/* Service Header */}
-                    <div className="mb-4 sm:mb-6 flex-1">
-                      <span className="text-xs sm:text-body-sm font-medium tracking-wide text-text-tertiary uppercase block mb-2 sm:mb-3">
-                        {service.subtitle}
-                      </span>
-                      <h3 className="text-base sm:text-lg md:text-heading-lg lg:text-display-sm font-display font-bold text-text-primary mb-3 sm:mb-4 group-hover:text-accent-600 transition-colors leading-tight">
+                <div className="relative p-8 lg:p-10 bg-white rounded-4xl shadow-medium hover:shadow-hard transition-all duration-500 border border-neutral-200 hover:border-accent-300 cursor-pointer overflow-hidden">
+                  {/* Background Gradient */}
+                  <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-br ${service.color} opacity-10 rounded-full blur-2xl group-hover:opacity-20 transition-opacity duration-300`} />
+                  
+                  {/* Service Icon */}
+                  <div className="relative z-10 mb-6">
+                    <div className="text-4xl lg:text-5xl mb-4">
+                      {service.icon}
+                    </div>
+                    <span className="text-body-sm font-medium tracking-wide text-text-tertiary uppercase">
+                      {service.subtitle}
+                    </span>
+                  </div>
+
+                  {/* Content */}
+                  <div className="relative z-10 space-y-6">
+                    <div>
+                      <h3 className="text-heading-lg lg:text-display-sm font-display font-bold text-text-primary mb-4 group-hover:text-accent-600 transition-colors">
                         {service.title}
                       </h3>
-                      <p className="text-sm sm:text-base md:text-body-lg text-text-secondary leading-relaxed">
+                      <p className="text-body-lg text-text-secondary leading-relaxed">
                         {service.description}
                       </p>
                     </div>
 
                     {/* Features List */}
-                    <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
+                    <div className="space-y-3">
                       {service.features.map((feature, i) => (
-                        <div key={i} className="flex items-center justify-center gap-2 sm:gap-3">
-                          <div className="w-1 sm:w-1.5 h-1 sm:h-1.5 bg-accent-500 rounded-full flex-shrink-0" />
-                          <span className="text-xs sm:text-sm md:text-body-md text-text-secondary text-center">
+                        <div key={i} className="flex items-center gap-3">
+                          <div className="w-1.5 h-1.5 bg-accent-500 rounded-full" />
+                          <span className="text-body-md text-text-secondary">
                             {feature}
                           </span>
                         </div>
@@ -170,8 +192,8 @@ const Services = () => {
                     </div>
 
                     {/* Pricing & CTA */}
-                    <div className="pt-4 sm:pt-6 border-t border-neutral-200 space-y-3 sm:space-y-4">
-                      <span className="text-sm sm:text-base md:text-heading-md font-display font-semibold text-text-primary block">
+                    <div className="flex items-center justify-between pt-6 border-t border-neutral-200">
+                      <span className="text-heading-md font-display font-semibold text-text-primary">
                         {service.price}
                       </span>
                       <InteractiveButton variant="primary" size="sm">
@@ -179,7 +201,7 @@ const Services = () => {
                       </InteractiveButton>
                     </div>
                   </div>
-                </MagneticButton>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -187,7 +209,7 @@ const Services = () => {
       </section>
 
       {/* Additional Services */}
-      <section className="py-16 sm:py-20 lg:py-24 xl:py-28 px-4 sm:px-6 lg:px-8 bg-neutral-50">
+      <section className="py-24 lg:py-32 px-6 lg:px-8 bg-neutral-50">
         <div className="max-w-7xl mx-auto">
           <TextReveal className="text-center mb-16">
             <div className="space-y-4">
@@ -200,15 +222,15 @@ const Services = () => {
             </div>
           </TextReveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {additionalServices.map((service, index) => (
               <TextReveal key={index} delay={index * 0.1}>
                 <MagneticButton intensity={0.2} className="w-full">
-                  <div className="p-4 sm:p-6 lg:p-8 bg-white rounded-3xl border border-neutral-200 hover:border-accent-300 hover:shadow-soft transition-all duration-300 h-full">
-                    <h3 className="text-base sm:text-lg md:text-heading-md font-display font-semibold text-text-primary mb-2 sm:mb-3 leading-tight">
+                  <div className="p-6 lg:p-8 bg-white rounded-3xl border border-neutral-200 hover:border-accent-300 hover:shadow-soft transition-all duration-300 h-full">
+                    <h3 className="text-heading-md font-display font-semibold text-text-primary mb-3">
                       {service.title}
                     </h3>
-                    <p className="text-sm sm:text-base md:text-body-lg text-text-secondary leading-relaxed">
+                    <p className="text-body-lg text-text-secondary leading-relaxed">
                       {service.description}
                     </p>
                   </div>
@@ -220,9 +242,9 @@ const Services = () => {
       </section>
 
       {/* Process Section */}
-      <section className="py-16 sm:py-20 lg:py-24 xl:py-28 px-4 sm:px-6 lg:px-8">
+      <section className="py-24 lg:py-32 px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <TextReveal className="text-center mb-16">
+          <TextReveal className="text-center mb-20">
             <div className="space-y-4">
               <span className="text-body-sm font-medium tracking-[0.3em] text-text-tertiary uppercase">
                 How We Work
@@ -233,7 +255,7 @@ const Services = () => {
             </div>
           </TextReveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12">
+          <div className="grid lg:grid-cols-4 gap-8 lg:gap-12">
             {processSteps.map((step, index) => (
               <TextReveal key={step.step} delay={index * 0.15}>
                 <div className="relative text-center group">
@@ -262,7 +284,7 @@ const Services = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 sm:py-20 lg:py-24 xl:py-28 px-4 sm:px-6 lg:px-8 bg-neutral-50">
+      <section className="py-24 lg:py-32 px-6 lg:px-8 bg-neutral-50">
         <div className="max-w-4xl mx-auto text-center">
           <TextReveal>
             <h2 className="text-display-md lg:text-display-lg font-display font-bold text-text-primary mb-8 leading-tight">

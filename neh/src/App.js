@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import SmoothScrollProvider from './components/SmoothScrollProvider';
-import Loader from './components/Loader';
+import PageTransition from './components/PageTransition';
 
 // Pages
 import Home from './pages/Home';
@@ -15,8 +15,6 @@ import About from './pages/About';
 import Work from './pages/Work';
 import Services from './pages/Services';
 import Contact from './pages/Contact';
-import NotFound from './pages/NotFound';
-import TermsAndConditions from './pages/TermsAndConditions';
 
 const pageVariants = {
   initial: {
@@ -123,75 +121,21 @@ const AnimatedRoutes = () => {
             </motion.div>
           } 
         />
-        <Route 
-          path="/terms" 
-          element={
-            <motion.div
-              initial="initial"
-              animate="in"
-              exit="out"
-              variants={pageVariants}
-              transition={pageTransition}
-              className="relative"
-            >
-              <TermsAndConditions />
-            </motion.div>
-          } 
-        />
-        <Route 
-          path="*" 
-          element={
-            <motion.div
-              initial="initial"
-              animate="in"
-              exit="out"
-              variants={pageVariants}
-              transition={pageTransition}
-              className="relative"
-            >
-              <NotFound />
-            </motion.div>
-          } 
-        />
       </Routes>
     </AnimatePresence>
   );
 };
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Quick loading time
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 800);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <Router>
       <SmoothScrollProvider>
-        <div className="App min-h-screen bg-primary-50 text-text-primary font-body antialiased overflow-x-hidden">
-          <AnimatePresence mode="wait">
-            {isLoading ? (
-              <Loader key="loader" />
-            ) : (
-              <motion.div
-                key="app"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-              >
-                <Header />
-                <main className="relative pt-16 sm:pt-20 lg:pt-24 overflow-x-hidden">
-                  <AnimatedRoutes />
-                </main>
-                <Footer />
-              </motion.div>
-            )}
-          </AnimatePresence>
+        <div className="App min-h-screen bg-primary-50 text-text-primary font-body antialiased">
+          <Header />
+          <main className="relative pt-20 lg:pt-24">
+            <AnimatedRoutes />
+          </main>
+          <Footer />
         </div>
       </SmoothScrollProvider>
     </Router>

@@ -28,29 +28,10 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    
-    try {
-      const response = await fetch('https://formspree.io/f/your-form-id', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-      
-      if (response.ok) {
-        alert('Thank you for your message! We\'ll get back to you soon.');
-        setFormData({ name: '', email: '', company: '', message: '' });
-      } else {
-        alert('There was an error sending your message. Please try again.');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('There was an error sending your message. Please try again.');
-    }
+    console.log('Form submitted:', formData);
+    // Handle form submission here
   };
 
   const contactInfo = [
@@ -102,8 +83,8 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-primary-50 text-text-primary overflow-x-hidden">
       {/* Hero Section */}
-      <section className="relative py-20 sm:py-24 lg:py-28 xl:py-32 px-4 sm:px-6 lg:px-8 min-h-[75vh] flex items-center">
-        <div className="max-w-7xl mx-auto w-full">
+      <section className="relative py-32 lg:py-40 px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
           <FloatingElement duration={10} intensity={20} delay={0} className="absolute top-32 right-20 w-40 h-40 bg-accent-500/10 rounded-full blur-3xl" />
           <FloatingElement duration={8} intensity={15} delay={2} direction="x" className="absolute bottom-40 left-10 w-32 h-32 bg-accent-400/10 rounded-full blur-2xl" />
           
@@ -112,13 +93,13 @@ const Contact = () => {
               <span className="text-body-sm font-medium tracking-[0.3em] text-text-tertiary uppercase">
                 Get in Touch
               </span>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-black text-text-primary leading-none">
+              <h1 className="text-display-xl lg:text-display-2xl font-display font-black text-text-primary leading-none">
                 CONTACT
                 <span className="block bg-gradient-to-r from-accent-600 to-accent-400 bg-clip-text text-transparent">
                   TREND ART
                 </span>
               </h1>
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-text-secondary max-w-4xl mx-auto leading-relaxed px-4">
+              <p className="text-heading-md text-text-secondary max-w-4xl mx-auto leading-relaxed">
                 Ready to start something extraordinary? Let's discuss your vision and 
                 explore how we can bring it to life.
               </p>
@@ -128,9 +109,9 @@ const Contact = () => {
       </section>
 
       {/* Contact Form & Info */}
-      <section className="py-16 sm:py-20 lg:py-24 xl:py-28 px-4 sm:px-6 lg:px-8">
+      <section className="py-24 lg:py-32 px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-16 lg:gap-20">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-20">
             {/* Contact Form */}
             <TextReveal>
               <div>
@@ -150,7 +131,7 @@ const Contact = () => {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 sm:px-6 py-3 sm:py-4 bg-white border-2 border-neutral-200 rounded-2xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-300 text-text-primary placeholder-text-tertiary text-base sm:text-body-lg"
+                      className="w-full px-6 py-4 bg-white border-2 border-neutral-200 rounded-2xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-300 text-text-primary placeholder-text-tertiary text-body-lg"
                       placeholder="Your name"
                     />
                   </div>
@@ -166,7 +147,7 @@ const Contact = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 sm:px-6 py-3 sm:py-4 bg-white border-2 border-neutral-200 rounded-2xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-300 text-text-primary placeholder-text-tertiary text-base sm:text-body-lg"
+                      className="w-full px-6 py-4 bg-white border-2 border-neutral-200 rounded-2xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-300 text-text-primary placeholder-text-tertiary text-body-lg"
                       placeholder="your@email.com"
                     />
                   </div>
@@ -181,7 +162,7 @@ const Contact = () => {
                       name="company"
                       value={formData.company}
                       onChange={handleChange}
-                      className="w-full px-4 sm:px-6 py-3 sm:py-4 bg-white border-2 border-neutral-200 rounded-2xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-300 text-text-primary placeholder-text-tertiary text-base sm:text-body-lg"
+                      className="w-full px-6 py-4 bg-white border-2 border-neutral-200 rounded-2xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-300 text-text-primary placeholder-text-tertiary text-body-lg"
                       placeholder="Your company name"
                     />
                   </div>
@@ -197,7 +178,7 @@ const Contact = () => {
                       onChange={handleChange}
                       required
                       rows={6}
-                      className="w-full px-4 sm:px-6 py-3 sm:py-4 bg-white border-2 border-neutral-200 rounded-2xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-300 resize-none text-text-primary placeholder-text-tertiary text-base sm:text-body-lg"
+                      className="w-full px-6 py-4 bg-white border-2 border-neutral-200 rounded-2xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-300 resize-none text-text-primary placeholder-text-tertiary text-body-lg"
                       placeholder="Tell us about your project..."
                     />
                   </div>
@@ -280,7 +261,7 @@ const Contact = () => {
       </section>
 
       {/* Global Presence */}
-      <section className="py-16 sm:py-20 lg:py-24 xl:py-28 px-4 sm:px-6 lg:px-8 bg-neutral-50">
+      <section className="py-24 lg:py-32 px-6 lg:px-8 bg-neutral-50">
         <div className="max-w-7xl mx-auto">
           <TextReveal className="text-center mb-16">
             <div className="space-y-4">
@@ -293,7 +274,7 @@ const Contact = () => {
             </div>
           </TextReveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {locations.map((location, index) => (
               <TextReveal key={location.city} delay={index * 0.1}>
                 <MagneticButton intensity={0.1} className="w-full h-full">
@@ -312,7 +293,7 @@ const Contact = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16 sm:py-20 lg:py-24 xl:py-28 px-4 sm:px-6 lg:px-8">
+      <section className="py-24 lg:py-32 px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <TextReveal className="text-center mb-20">
             <div className="space-y-4">
@@ -345,7 +326,7 @@ const Contact = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 sm:py-20 lg:py-24 xl:py-28 px-4 sm:px-6 lg:px-8 bg-neutral-50">
+      <section className="py-24 lg:py-32 px-6 lg:px-8 bg-neutral-50">
         <div className="max-w-4xl mx-auto text-center">
           <TextReveal>
             <h2 className="text-display-md lg:text-display-lg font-display font-bold text-text-primary mb-8 leading-tight">

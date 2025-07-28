@@ -19,7 +19,6 @@ const Header = () => {
   }, []);
 
   const navItems = [
-    { name: 'Home', path: '/' },
     { name: 'Work', path: '/work' },
     { name: 'Services', path: '/services' },
     { name: 'About', path: '/about' },
@@ -34,6 +33,13 @@ const Header = () => {
     }
   };
 
+  const navItemVariants = {
+    initial: { y: 0 },
+    hover: { 
+      y: -2,
+      transition: { duration: 0.2, ease: [0.25, 0.4, 0.25, 1] }
+    }
+  };
 
   const mobileMenuVariants = {
     closed: {
@@ -71,10 +77,14 @@ const Header = () => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
-      className="fixed top-0 left-0 right-0 z-50"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
+        isScrolled 
+          ? 'bg-primary-50/95 backdrop-blur-xl border-b border-neutral-200 shadow-soft' 
+          : 'bg-transparent'
+      }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-20 lg:h-24">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20 lg:h-24">
           {/* Logo */}
           <Link to="/" className="relative z-50">
             <MagneticButton intensity={0.2}>
@@ -84,55 +94,109 @@ const Header = () => {
                 whileHover="hover"
                 className="flex items-center space-x-3"
               >
-                <div className="w-7 h-7 sm:w-8 sm:h-8 lg:w-10 lg:h-10 bg-text-primary rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold text-base sm:text-lg lg:text-xl">T</span>
+                <div className="w-8 h-8 lg:w-10 lg:h-10 bg-text-primary rounded-full flex items-center justify-center">
+                  <span className="text-white font-bold text-lg lg:text-xl">T</span>
                 </div>
-                <span className="font-display font-bold text-lg sm:text-xl lg:text-2xl text-text-primary tracking-tight">
+                <span className="font-display font-bold text-xl lg:text-2xl text-text-primary tracking-tight">
                   TREND ART
                 </span>
               </motion.div>
             </MagneticButton>
           </Link>
 
-          {/* Desktop Navigation - Clean Tab Style */}
-          <nav className="hidden lg:flex items-center">
-            <div className="flex items-center bg-white/80 backdrop-blur-sm rounded-full p-1 sm:p-1.5 border border-neutral-200 shadow-soft gap-0.5 sm:gap-1">
-              {navItems.map((item, index) => (
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center space-x-12">
+            {navItems.map((item, index) => (
+              <motion.div 
+                key={item.name} 
+                variants={navItemVariants} 
+                initial="initial" 
+                whileHover="hover"
+                animate={{
+                  y: [0, -1, 0],
+                }}
+                transition={{
+                  duration: 2 + index * 0.2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: index * 0.3
+                }}
+              >
                 <Link
-                  key={item.name}
                   to={item.path}
-                  className="relative"
+                  className={`relative font-body font-medium text-body-md tracking-wide transition-all duration-300 group ${
+                    location.pathname === item.path
+                      ? 'text-text-primary'
+                      : 'text-text-secondary hover:text-text-primary'
+                  }`}
                 >
-                  <motion.div
-                    className={`px-3 sm:px-4 lg:px-5 py-2 sm:py-2.5 rounded-full font-medium text-sm sm:text-body-md transition-all duration-300 ${
-                      location.pathname === item.path
-                        ? 'bg-text-primary text-white shadow-soft'
-                        : 'text-text-secondary hover:text-text-primary hover:bg-neutral-100'
-                    }`}
-                    whileHover={{ 
-                      scale: location.pathname !== item.path ? 1.05 : 1,
-                      transition: { duration: 0.2 }
-                    }}
-                    whileTap={{ scale: 0.98 }}
+                  <motion.span
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.2 }}
                   >
                     {item.name}
-                  </motion.div>
+                  </motion.span>
+                  {location.pathname === item.path && (
+                    <motion.div
+                      layoutId="activeIndicator"
+                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-accent-500 rounded-full"
+                      transition={{ duration: 0.3, ease: [0.25, 0.4, 0.25, 1] }}
+                    />
+                  )}
+                  <motion.div
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-accent-300 rounded-full opacity-0 group-hover:opacity-100"
+                    transition={{ duration: 0.2 }}
+                  />
                 </Link>
-              ))}
-            </div>
+              </motion.div>
+            ))}
           </nav>
 
           {/* CTA Button */}
           <div className="hidden lg:block">
             <MagneticButton intensity={0.4}>
-              <InteractiveButton 
-                variant="primary" 
-                size="md"
-                href="/contact"
-                className="font-medium"
+              <motion.div
+                animate={{ 
+                  scale: [1, 1.05, 1],
+                  boxShadow: [
+                    '0 4px 14px 0 rgba(0, 0, 0, 0.1)',
+                    '0 6px 20px 0 rgba(0, 0, 0, 0.15)',
+                    '0 4px 14px 0 rgba(0, 0, 0, 0.1)'
+                  ]
+                }}
+                transition={{ 
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
               >
-                Let's Talk
-              </InteractiveButton>
+                <InteractiveButton 
+                  variant="primary" 
+                  size="md"
+                  href="/contact"
+                  className="font-medium relative overflow-hidden"
+                >
+                  <motion.span
+                    animate={{ x: [0, 2, 0] }}
+                    transition={{ 
+                      duration: 1.5,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  >
+                    Let's Talk
+                  </motion.span>
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    animate={{ x: ['-100%', '100%'] }}
+                    transition={{ 
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                </InteractiveButton>
+              </motion.div>
             </MagneticButton>
           </div>
 
@@ -182,25 +246,25 @@ const Header = () => {
               initial="closed"
               animate="open"
               exit="closed"
-              className="lg:hidden overflow-hidden bg-white/95 backdrop-blur-xl border-t border-neutral-200 shadow-lg"
+              className="lg:hidden overflow-hidden bg-primary-50/98 backdrop-blur-xl border-t border-neutral-200"
             >
-              <div className="py-6 sm:py-8 space-y-4 sm:space-y-6 px-4 sm:px-6">
+              <div className="py-8 space-y-6">
                 {navItems.map((item, index) => (
                   <motion.div key={item.name} variants={mobileItemVariants}>
                     <Link
                       to={item.path}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className={`block text-lg sm:text-xl font-medium transition-colors duration-200 py-2 ${
+                      className={`block text-heading-lg font-medium transition-colors duration-200 ${
                         location.pathname === item.path
-                          ? 'text-text-primary border-l-4 border-accent-500 pl-4'
-                          : 'text-text-secondary hover:text-text-primary hover:pl-2'
+                          ? 'text-text-primary'
+                          : 'text-text-secondary hover:text-text-primary'
                       }`}
                     >
                       {item.name}
                     </Link>
                   </motion.div>
                 ))}
-                <motion.div variants={mobileItemVariants} className="pt-6 px-4 sm:px-0">
+                <motion.div variants={mobileItemVariants} className="pt-4">
                   <InteractiveButton 
                     variant="primary" 
                     size="lg"

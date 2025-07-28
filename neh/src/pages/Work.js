@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import TextReveal from '../components/TextReveal';
 import InteractiveButton from '../components/InteractiveButton';
-import MagneticButton from '../components/MagneticButton';
+import MarqueeCarousel from '../components/MarqueeCarousel';
 import FloatingElement from '../components/FloatingElement';
 
 const Work = () => {
@@ -92,41 +92,47 @@ const Work = () => {
     ? projects 
     : projects.filter(project => project.category === selectedCategory);
 
+  const testimonials = [
+    "Transformed our digital presence completely",
+    "Exceptional creativity and attention to detail", 
+    "Outstanding results beyond expectations",
+    "Professional team with innovative solutions",
+    "Delivered on time with perfect execution"
+  ];
 
   return (
     <div className="min-h-screen bg-primary-50 text-text-primary overflow-x-hidden">
       {/* Hero Section */}
-      <section className="py-20 sm:py-24 lg:py-28 xl:py-32 px-4 sm:px-6 lg:px-8 min-h-[75vh] flex items-center">
-        <div className="max-w-7xl mx-auto w-full">
+      <section className="relative py-32 lg:py-40 px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
           <FloatingElement duration={8} intensity={15} delay={1} className="absolute top-20 right-20 w-32 h-32 bg-accent-500/10 rounded-full blur-2xl" />
           <FloatingElement duration={6} intensity={20} delay={0} direction="x" className="absolute bottom-40 left-10 w-24 h-24 bg-accent-400/10 rounded-full blur-xl" />
           
-          <div className="text-center">
-            <TextReveal>
-            <div className="space-y-6 sm:space-y-8 mb-12 sm:mb-16">
+          <TextReveal className="text-center mb-16">
+            <div className="space-y-8">
               <span className="text-body-sm font-medium tracking-[0.3em] text-text-tertiary uppercase">
                 Our Portfolio
               </span>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-black text-text-primary leading-none">
+              <h1 className="text-display-xl lg:text-display-2xl font-display font-black text-text-primary leading-none">
                 CREATIVE
                 <span className="block bg-gradient-to-r from-accent-600 to-accent-400 bg-clip-text text-transparent">
                   EXCELLENCE
                 </span>
               </h1>
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-text-secondary max-w-3xl mx-auto leading-relaxed px-4">
+              <p className="text-heading-md text-text-secondary max-w-3xl mx-auto leading-relaxed">
                 Explore our portfolio of transformative digital experiences, innovative brand identities, and cutting-edge creative solutions that drive real business results.
               </p>
             </div>
-            </TextReveal>
+          </TextReveal>
 
-            {/* Category Filter */}
-            <TextReveal delay={0.4} direction="scale" className="flex justify-center px-4">
-            <div className="flex flex-wrap justify-center gap-3 sm:gap-4 bg-white rounded-4xl p-3 sm:p-4 shadow-medium border border-neutral-200 max-w-4xl">
+          {/* Category Filter */}
+          <TextReveal delay={0.4} direction="scale" className="flex justify-center mb-20">
+            <div className="flex flex-wrap gap-4 bg-white rounded-4xl p-2 shadow-medium border border-neutral-200">
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-3xl font-medium text-sm sm:text-body-md transition-all duration-300 whitespace-nowrap min-w-0 ${
+                  className={`px-6 py-3 rounded-3xl font-medium text-body-md transition-all duration-300 ${
                     selectedCategory === category
                       ? 'bg-text-primary text-white shadow-soft'
                       : 'text-text-secondary hover:text-text-primary hover:bg-neutral-100'
@@ -136,13 +142,12 @@ const Work = () => {
                 </button>
               ))}
             </div>
-            </TextReveal>
-          </div>
+          </TextReveal>
         </div>
       </section>
 
       {/* Projects Grid */}
-      <section className="py-16 sm:py-20 lg:py-24 xl:py-28 px-4 sm:px-6 lg:px-8">
+      <section className="py-16 lg:py-24 px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <AnimatePresence mode="wait">
             <motion.div
@@ -151,7 +156,7 @@ const Work = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
-              className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16"
+              className="grid lg:grid-cols-2 gap-12 lg:gap-16"
             >
               {filteredProjects.map((project, index) => (
                 <motion.div
@@ -163,11 +168,11 @@ const Work = () => {
                   onMouseEnter={() => setHoveredProject(project.id)}
                   onMouseLeave={() => setHoveredProject(null)}
                 >
-                  <div className="relative overflow-hidden rounded-4xl mb-6 sm:mb-8 shadow-medium group-hover:shadow-hard transition-all duration-500">
+                  <div className="relative overflow-hidden rounded-4xl mb-8 shadow-medium group-hover:shadow-hard transition-all duration-500">
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-64 sm:h-80 lg:h-96 object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="w-full h-80 lg:h-96 object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className={`absolute top-6 right-6 w-16 h-16 bg-gradient-to-br ${project.color} rounded-full opacity-80 blur-xl group-hover:blur-sm transition-all duration-300`} />
@@ -218,9 +223,31 @@ const Work = () => {
         </div>
       </section>
 
+      {/* Testimonials Marquee */}
+      <section className="py-16 lg:py-20">
+        <TextReveal className="text-center mb-12">
+          <span className="text-body-sm font-medium tracking-[0.3em] text-text-tertiary uppercase">
+            Client Feedback
+          </span>
+        </TextReveal>
+        
+        <MarqueeCarousel 
+          items={testimonials.map((testimonial, index) => (
+            <div key={index} className="px-8 py-6 bg-white rounded-3xl border border-neutral-200 shadow-soft min-w-80">
+              <p className="text-heading-md font-medium text-text-primary text-center">
+                "{testimonial}"
+              </p>
+            </div>
+          ))}
+          speed={0.3}
+          className="h-24"
+          itemClassName="h-full flex items-center"
+          scrollBased={true}
+        />
+      </section>
 
       {/* Process Overview */}
-      <section className="py-16 sm:py-20 lg:py-24 xl:py-28 px-4 sm:px-6 lg:px-8 bg-neutral-50">
+      <section className="py-24 lg:py-32 px-6 lg:px-8 bg-neutral-50">
         <div className="max-w-7xl mx-auto">
           <TextReveal className="text-center mb-20">
             <div className="space-y-4">
@@ -275,7 +302,7 @@ const Work = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 sm:py-20 lg:py-24 xl:py-28 px-4 sm:px-6 lg:px-8">
+      <section className="py-24 lg:py-32 px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <TextReveal>
             <h2 className="text-display-md lg:text-display-lg font-display font-bold text-text-primary mb-8 leading-tight">
